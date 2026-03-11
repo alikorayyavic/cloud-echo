@@ -61,7 +61,7 @@ export default function Navbar() {
               Giriş Yap
             </a>
             <motion.a
-              href="#"
+              href="/try-it"
               className="glow-border inline-flex items-center gap-2 rounded-xl bg-black px-5 py-2 text-sm font-semibold text-white"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
@@ -105,7 +105,7 @@ export default function Navbar() {
                 Giriş Yap
               </a>
               <a
-                href="#"
+                href="/try-it"
                 className="glow-border inline-flex justify-center rounded-xl bg-black px-5 py-3 text-sm font-semibold text-white"
               >
                 Ücretsiz Deneyin

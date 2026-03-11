@@ -73,7 +73,8 @@ export default function CTABanner() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, delay: 0.3 }}
           >
-            <motion.button
+            <motion.a
+              href="/try-it"
               className="glow-border group relative inline-flex items-center gap-2.5 rounded-2xl bg-black px-8 py-4 text-base font-semibold text-white"
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
@@ -84,7 +85,7 @@ export default function CTABanner() {
               />
               <span className="relative">Ücretsiz Deneyin</span>
               <ArrowRight className="relative h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-            </motion.button>
+            </motion.a>
 
             <motion.button
               className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-8 py-4 text-base font-semibold text-white/55 hover:text-white hover:bg-white/10 transition-colors duration-200"

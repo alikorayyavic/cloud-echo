@@ -2,7 +2,7 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { MessageSquare, Cpu, BarChart3, Bot, Zap, ArrowRight } from 'lucide-react'
+import { MessageSquare, Cpu, BarChart3, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
 const PRODUCTS = [
@@ -32,24 +32,6 @@ const PRODUCTS = [
     gradient: 'from-violet-500/10 to-transparent',
     slug:     'reporter-agent',
     tag:      'Raporlama',
-  },
-  {
-    icon:     Bot,
-    title:    'RPA',
-    desc:     'Tekrarlayan süreçleri tam otomasyona alın. İnsan müdahalesi olmadan 7/24 kesintisiz çalışan robotik otomasyon.',
-    color:    '#f59e0b',
-    gradient: 'from-amber-500/10 to-transparent',
-    slug:     'rpa',
-    tag:      'Otomasyon',
-  },
-  {
-    icon:     Zap,
-    title:    'AI Automations',
-    desc:     'n8n tabanlı B2B/B2C iş akışları ve zamanlanmış görev otomasyonları. Ekosisteminize dakikalar içinde entegre.',
-    color:    '#4ade80',
-    gradient: 'from-green-500/10 to-transparent',
-    slug:     'ai-automations',
-    tag:      'n8n Tabanlı',
   },
 ]
 
@@ -161,7 +143,7 @@ export default function Features() {
             animate={headingInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
           >
-            5 Güçlü AI Çözümü
+            3 AI Ajan
           </motion.div>
 
           <motion.h2
@@ -170,8 +152,7 @@ export default function Features() {
             animate={headingInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, delay: 0.1 }}
           >
-            İşletmenizi <span className="gradient-text">Dönüştürecek</span>
-            <br />AI Ajanları
+            <span className="gradient-text">AI Ajan</span> Çözümleri
           </motion.h2>
 
           <motion.p
@@ -184,15 +165,10 @@ export default function Features() {
           </motion.p>
         </div>
 
-        {/* Cards: 3 top + 2 bottom (centered) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-          {PRODUCTS.slice(0, 3).map((p, i) => (
+        {/* 3 cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {PRODUCTS.map((p, i) => (
             <ProductCard key={p.slug} product={p} index={i} />
-          ))}
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:w-2/3 lg:mx-auto">
-          {PRODUCTS.slice(3).map((p, i) => (
-            <ProductCard key={p.slug} product={p} index={i + 3} />
           ))}
         </div>
       </div>

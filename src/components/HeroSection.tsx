@@ -1,9 +1,9 @@
 'use client'
 
-import { motion, useMotionValue, useSpring, useTransform, useAnimationFrame } from 'framer-motion'
+import { motion, useMotionValue, useSpring, useTransform, useAnimationFrame, AnimatePresence } from 'framer-motion'
 import { InteractiveRobotSpline } from '@/components/interactive-3d-robot'
-import { useRef, useState } from 'react'
-import { ArrowRight, Play } from 'lucide-react'
+import { useRef, useState, useEffect } from 'react'
+import { ArrowRight, MessageSquare, Cpu, BarChart3, Bot, Zap, CheckCircle2, Loader2 } from 'lucide-react'
 import Link from 'next/link'
 
 /* ── 5 Products that orbit the robot ── */
@@ -17,6 +17,135 @@ const PRODUCTS = [
 
 const ORBIT_RADIUS   = 210
 const ORBIT_DURATION = 30000
+
+/* ── Activity feed data ── */
+const ACTIVITIES = [
+  { id: 0, agent: 'Read & Answer Agent', task: 'Müşteri sorusu yanıtlandı',        Icon: MessageSquare, color: '#06b6d4', bg: '#042a33', status: 'completed', dur: '2s',  no: '#4521' },
+  { id: 1, agent: 'Worker Agent',        task: 'Sipariş kaydı güncellendi',         Icon: Cpu,           color: '#3b82f6', bg: '#0f1b3d', status: 'running',   dur: null,  no: '#4522' },
+  { id: 2, agent: 'Reporter Agent',      task: 'Haftalık rapor oluşturuldu',        Icon: BarChart3,     color: '#8b5cf6', bg: '#1a0f3d', status: 'completed', dur: '4s',  no: '#4523' },
+  { id: 3, agent: 'RPA',                 task: 'Fatura formu otomatik dolduruldu',  Icon: Bot,           color: '#f59e0b', bg: '#2a1500', status: 'completed', dur: '6s',  no: '#4524' },
+  { id: 4, agent: 'AI Automations',      task: 'Onboarding iş akışı tetiklendi',   Icon: Zap,           color: '#4ade80', bg: '#0a2010', status: 'running',   dur: null,  no: '#4525' },
+  { id: 5, agent: 'Read & Answer Agent', task: 'Stok durumu sorgulandı',            Icon: MessageSquare, color: '#06b6d4', bg: '#042a33', status: 'completed', dur: '1s',  no: '#4526' },
+  { id: 6, agent: 'Worker Agent',        task: 'Yeni kullanıcı kaydı oluşturuldu', Icon: Cpu,           color: '#3b82f6', bg: '#0f1b3d', status: 'completed', dur: '3s',  no: '#4527' },
+  { id: 7, agent: 'Reporter Agent',      task: 'Satış analizi tamamlandı',          Icon: BarChart3,     color: '#8b5cf6', bg: '#1a0f3d', status: 'running',   dur: null,  no: '#4528' },
+]
+
+const VISIBLE_MS  = 10_000
+const ADD_MS      = 3_500
+const MAX_VISIBLE = 4
+
+type QueueCard = typeof ACTIVITIES[0] & { uid: string; addedAt: number }
+
+function nowTime() {
+  return new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+}
+
+/* ── Mini notification card ── */
+function MiniCard({ item }: { item: QueueCard }) {
+  const [time] = useState(nowTime)
+  const Icon = item.Icon
+
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 28, scale: 0.97 }}
+      animate={{ opacity: 1, y: 0,  scale: 1    }}
+      exit={{    opacity: 0, y: -24, scale: 0.97 }}
+      transition={{ duration: 0.38, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
+      className="relative rounded-xl border border-white/[0.07] bg-white/[0.03] p-3.5 backdrop-blur-sm overflow-hidden"
+    >
+      <div
+        className="absolute left-0 top-3 bottom-3 w-0.5 rounded-full"
+        style={{ background: item.color, opacity: 0.55 }}
+      />
+      <div className="pl-3 flex items-start justify-between gap-2">
+        <div className="flex items-start gap-2.5 min-w-0">
+          <div
+            className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-white/10"
+            style={{ background: item.bg, boxShadow: `0 0 10px ${item.color}25` }}
+          >
+            <Icon className="h-3 w-3" style={{ color: item.color }} />
+          </div>
+          <div className="min-w-0">
+            <p className="text-[10px] text-white/30 mb-0.5 truncate">{item.agent}</p>
+            <p className="text-xs font-medium text-white/75 leading-snug truncate">{item.task}</p>
+            <div className="mt-1.5">
+              {item.status === 'completed' ? (
+                <span className="inline-flex items-center gap-1 text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+                  <CheckCircle2 className="h-2 w-2" />
+                  Tamamlandı
+                  {item.dur && <span className="opacity-55">{item.dur}</span>}
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-1 text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400">
+                  <Loader2 className="h-2 w-2 animate-spin" />
+                  Devam Ediyor
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="shrink-0 text-right">
+          <p className="text-[9px] text-white/20 tabular-nums">{time}</p>
+          <p className="text-[9px] text-white/15 mt-0.5">{item.no}</p>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+/* ── Live activity feed (left column) ── */
+function ActivityFeed() {
+  const [queue, setQueue] = useState<QueueCard[]>([])
+  const nextIdxRef = useRef(0)
+
+  useEffect(() => {
+    const initial: QueueCard[] = [0, 1, 2, 3].map((i) => ({
+      ...ACTIVITIES[i],
+      uid:     `card-init-${i}`,
+      addedAt: Date.now() - i * (ADD_MS * 0.8),
+    }))
+    setQueue(initial)
+    nextIdxRef.current = 4
+
+    const addId = setInterval(() => {
+      const idx = nextIdxRef.current % ACTIVITIES.length
+      nextIdxRef.current += 1
+      setQueue((prev) => {
+        const next = [...prev, { ...ACTIVITIES[idx], uid: `card-${Date.now()}`, addedAt: Date.now() }]
+        return next.length > MAX_VISIBLE ? next.slice(next.length - MAX_VISIBLE) : next
+      })
+    }, ADD_MS)
+
+    const removeId = setInterval(() => {
+      const cutoff = Date.now() - VISIBLE_MS
+      setQueue((prev) => prev.filter((c) => c.addedAt > cutoff))
+    }, 600)
+
+    return () => { clearInterval(addId); clearInterval(removeId) }
+  }, [])
+
+  return (
+    <div className="relative flex flex-col gap-2.5 py-2 min-h-[300px] justify-end overflow-hidden">
+      {/* Fade mask top */}
+      <div
+        className="absolute top-0 left-0 right-0 h-10 z-10 pointer-events-none"
+        style={{ background: 'linear-gradient(to bottom, #000 20%, transparent)' }}
+      />
+      <AnimatePresence mode="sync">
+        {queue.map((item) => <MiniCard key={item.uid} item={item} />)}
+      </AnimatePresence>
+      {/* Live badge */}
+      <div className="absolute -top-2 right-0 z-20 flex items-center gap-1.5 rounded-full border border-white/10 bg-black/90 backdrop-blur-sm px-2.5 py-1">
+        <span className="relative flex h-1.5 w-1.5">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+        </span>
+        <span className="text-[10px] text-white/50 font-medium">Canlı</span>
+      </div>
+    </div>
+  )
+}
 
 /* ── Individual orbiting product icon ── */
 function OrbitIcon({ product, index, total }: {
@@ -153,92 +282,42 @@ export default function HeroSection() {
       <div className="relative z-10 mx-auto max-w-6xl px-6 w-full py-16">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-          {/* ── Left: Text content ── */}
-          <div className="flex flex-col items-start">
-
+          {/* ── Left: Activity feed ── */}
+          <motion.div
+            className="flex flex-col"
+            initial={{ opacity: 0, x: -24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
             {/* Badge */}
-            <motion.div
-              className="mb-7 inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/5 px-4 py-1.5 text-xs text-cyan-400/80 backdrop-blur-sm"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-            >
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/5 px-4 py-1.5 text-xs text-cyan-400/80 self-start">
               <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />
               Yapay Zeka Destekli SaaS Platformu
-            </motion.div>
+            </div>
 
             {/* Heading */}
-            <motion.h1
-              className="text-5xl md:text-6xl xl:text-7xl font-bold leading-[1.08] tracking-tight mb-6"
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35, duration: 0.7 }}
-            >
-              <span className="gradient-text">SaaS Çözümlerini</span>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight leading-[1.15] mb-5">
+              <span className="gradient-text">AI Asistanlarınız</span>
               <br />
-              <span className="text-white/90">Yapay Zeka ile</span>
-              <br />
-              <span className="gradient-text">Yeniden Tanımlayın.</span>
-            </motion.h1>
+              <span className="text-white/90">7/24 Çalışıyor</span>
+            </h2>
 
-            {/* Subheading */}
-            <motion.p
-              className="text-base md:text-lg text-white/42 leading-relaxed mb-9 max-w-md"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-            >
-              5 güçlü AI ajanı ve otomasyon çözümüyle işletmenizi dönüştürün.
-              İkona tıklayarak ürünleri keşfedin.
-            </motion.p>
+            {/* CTA */}
+            <div className="mb-6">
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} className="inline-block">
+                <Link
+                  href="/try-it"
+                  className="glow-border group inline-flex items-center gap-2 rounded-xl bg-black px-6 py-3 text-sm font-semibold text-white"
+                >
+                  Hemen Başlayın
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </motion.div>
+            </div>
 
-            {/* CTA Buttons */}
-            <motion.div
-              className="flex flex-col sm:flex-row gap-3"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.65, duration: 0.6 }}
-            >
-              <motion.button
-                className="glow-border group inline-flex items-center gap-2 rounded-xl bg-black px-7 py-3.5 text-sm font-semibold text-white"
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
-              >
-                Hemen Başlayın
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </motion.button>
-
-              <motion.button
-                className="group inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-7 py-3.5 text-sm font-semibold text-white/55 backdrop-blur-sm transition-colors hover:bg-white/10 hover:text-white"
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
-              >
-                <Play className="h-3.5 w-3.5 fill-current" />
-                Demo İzle
-              </motion.button>
-            </motion.div>
-
-            {/* Social proof mini */}
-            <motion.div
-              className="mt-9 flex items-center gap-3"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.9, duration: 0.6 }}
-            >
-              <div className="flex -space-x-2">
-                {['#06b6d4', '#3b82f6', '#8b5cf6', '#f59e0b'].map((color, i) => (
-                  <div
-                    key={i}
-                    className="w-7 h-7 rounded-full border-2 border-black"
-                    style={{ background: `radial-gradient(circle at 40% 40%, ${color}cc, ${color}66)` }}
-                  />
-                ))}
-              </div>
-              <p className="text-xs text-white/35">
-                <span className="text-white/60 font-semibold">500+</span> işletme zaten kullanıyor
-              </p>
-            </motion.div>
-          </div>
+            {/* Live notification feed */}
+            <ActivityFeed />
+          </motion.div>
 
           {/* ── Right: Robot + Orbit ── */}
           <div
