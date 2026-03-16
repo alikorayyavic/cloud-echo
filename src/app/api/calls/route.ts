@@ -34,5 +34,7 @@ export async function GET(request: NextRequest) {
   }
 
   const data = await res.json()
-  return NextResponse.json(data)
+  // Retell returns a raw array; normalize to { calls: [...] }
+  const calls = Array.isArray(data) ? data : (data.calls ?? [])
+  return NextResponse.json({ calls })
 }
