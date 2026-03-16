@@ -1,23 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 285 74" fill="none">
-  <!-- Dynext italic bold text -->
+  <!-- Dynext italic bold text - white for dark backgrounds -->
   <text
     x="2" y="58"
     font-family="'Arial Black', 'Impact', 'Helvetica Neue', sans-serif"
     font-style="italic"
     font-weight="900"
     font-size="56"
-    fill="#1B3A8C"
+    fill="white"
     letter-spacing="-1"
   >Dynext</text>
-  <!-- AI badge - parallelogram: right side rounded, left side slanted like real logo -->
-  <path d="M 177,5 L 267,5 Q 274,5 274,12 L 274,62 Q 274,69 267,69 L 163,69 Z" fill="#1B3A8C"/>
-  <!-- AI text -->
+  <!-- AI badge - parallelogram with white fill, dark text -->
+  <path d="M 177,5 L 267,5 Q 274,5 274,12 L 274,62 Q 274,69 267,69 L 163,69 Z" fill="white"/>
+  <!-- AI text - dark for contrast on white badge -->
   <text
     x="185" y="53"
     font-family="'Arial', 'Helvetica Neue', sans-serif"
     font-weight="800"
     font-size="30"
-    fill="white"
+    fill="#1B3A8C"
     letter-spacing="2"
   >AI</text>
 </svg>

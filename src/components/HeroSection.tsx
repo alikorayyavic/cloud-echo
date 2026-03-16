@@ -189,8 +189,7 @@ function OrbitIcon({ product, index, total }: {
           {product.symbol}
         </motion.div>
         <span
-          className="text-[9px] font-medium tracking-wide whitespace-nowrap transition-colors duration-300 text-slate-400 group-hover:text-slate-600"
-          style={{ textShadow: '0 1px 8px rgba(0,0,0,0.8)' }}
+          className="text-[9px] font-medium tracking-wide whitespace-nowrap transition-colors duration-300 text-slate-500 group-hover:text-slate-700"
         >
           {product.name}
         </span>
@@ -334,7 +333,7 @@ export default function HeroSection() {
             </div>
 
             {/* Heading */}
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight leading-[1.15] mb-5">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.15] mb-5">
               <span className="gradient-text">AI Asistanlarınız</span>
               <br />
               <span className="text-slate-900">7/24 Çalışıyor</span>

@@ -169,7 +169,7 @@ export default function AIAutomationsSection() {
             </motion.div>
 
             <motion.h2
-              className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-5"
+              className="text-5xl md:text-6xl font-bold tracking-tight leading-[1.1] mb-5"
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.1 }}

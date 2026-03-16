@@ -59,7 +59,7 @@ export default function RPASection() {
             </motion.div>
 
             <motion.h2
-              className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-5"
+              className="text-5xl md:text-6xl font-bold tracking-tight leading-[1.1] mb-5"
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.1 }}
@@ -72,7 +72,7 @@ export default function RPASection() {
             </motion.h2>
 
             <motion.p
-              className="text-slate-400 text-base leading-relaxed mb-8 max-w-md"
+              className="text-slate-400 text-lg leading-relaxed mb-8 max-w-md"
               initial={{ opacity: 0, y: 16 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.55, delay: 0.2 }}
@@ -169,7 +169,7 @@ export default function RPASection() {
                   {USE_CASES.map((uc, i) => {
                     const Icon = uc.Icon
                     return (
-                      <div key={i} className="flex items-center gap-2 rounded-lg bg-slate-50 border border-white/5 px-3 py-2">
+                      <div key={i} className="flex items-center gap-2 rounded-lg bg-slate-50 border border-slate-200 px-3 py-2">
                         <Icon className="h-3.5 w-3.5 shrink-0" style={{ color: uc.color }} />
                         <span className="text-[11px] text-slate-500">{uc.label}</span>
                       </div>

@@ -3,6 +3,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Twitter, Github, Linkedin } from 'lucide-react'
+import DynextLogo from '@/components/DynextLogo'
 
 const NAV_LINKS = [
   { label: 'Ürün',   links: ['Özellikler', 'Fiyatlandırma', 'Entegrasyonlar', 'Güncellemeler'] },
@@ -33,8 +34,7 @@ export default function Footer() {
             {/* Brand */}
             <div className="col-span-2 md:col-span-1">
               <div className="mb-1">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/dynext-logo.svg" alt="Dynext AI" style={{ height: 32, filter: 'brightness(0) invert(1)' }} />
+                <DynextLogo variant="white" size="md" />
               </div>
               <p className="text-sm text-white/40 leading-relaxed max-w-xs mt-3">
                 Yapay zeka ile güçlendirilmiş SaaS çözümleri. Geleceği şimdi inşa ediyoruz.

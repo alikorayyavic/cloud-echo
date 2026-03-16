@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
+import DynextLogo from '@/components/DynextLogo'
 
 const NAV_ITEMS = ['Ürünler', 'Fiyatlandırma', 'Hakkımızda', 'Blog']
 
@@ -33,8 +34,7 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/dynext-logo.svg" alt="Dynext AI" height={36} style={{ height: 36 }} />
+            <DynextLogo variant="dark" size="md" />
           </Link>
 
           {/* Desktop nav */}
@@ -76,7 +76,7 @@ export default function Navbar() {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden text-slate-500 hover:text-white transition-colors p-1"
+            className="md:hidden text-slate-500 hover:text-slate-900 transition-colors p-1"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Menü"
           >
@@ -98,17 +98,17 @@ export default function Navbar() {
               <a
                 key={item}
                 href="#"
-                className="text-sm text-slate-500 hover:text-white py-2.5 transition-colors"
+                className="text-sm text-slate-500 hover:text-slate-900 py-2.5 transition-colors"
                 onClick={() => setMenuOpen(false)}
               >
                 {item}
               </a>
             ))}
             <div className="pt-4 mt-2 border-t border-slate-100 flex flex-col gap-2.5">
-              <Link href="/dashboard" className="text-sm text-slate-500 hover:text-white py-1.5 transition-colors" onClick={() => setMenuOpen(false)}>
+              <Link href="/dashboard" className="text-sm text-slate-500 hover:text-slate-900 py-1.5 transition-colors" onClick={() => setMenuOpen(false)}>
                 Dashboard
               </Link>
-              <a href="#" className="text-sm text-slate-500 hover:text-white py-1.5 transition-colors">
+              <a href="#" className="text-sm text-slate-500 hover:text-slate-900 py-1.5 transition-colors">
                 Giriş Yap
               </a>
               <a

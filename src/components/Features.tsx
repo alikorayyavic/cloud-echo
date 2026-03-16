@@ -82,12 +82,12 @@ function ProductCard({ product, index, wide }: { product: typeof PRODUCTS[0]; in
           </div>
 
           {/* Title */}
-          <h3 className="mb-2.5 text-lg font-semibold text-slate-900 tracking-tight group-hover:text-white transition-colors">
+          <h3 className="mb-2.5 text-xl font-semibold text-slate-900 tracking-tight transition-colors">
             {product.title}
           </h3>
 
           {/* Description */}
-          <p className="text-sm text-slate-400 leading-relaxed mb-5 group-hover:text-slate-500 transition-colors">
+          <p className="text-base text-slate-400 leading-relaxed mb-5 transition-colors">
             {product.desc}
           </p>
 
@@ -147,7 +147,7 @@ export default function Features() {
           </motion.div>
 
           <motion.h2
-            className="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 mb-4"
+            className="text-5xl md:text-6xl font-bold tracking-tight text-slate-900 mb-4"
             initial={{ opacity: 0, y: 20 }}
             animate={headingInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, delay: 0.1 }}
@@ -156,7 +156,7 @@ export default function Features() {
           </motion.h2>
 
           <motion.p
-            className="text-slate-400 max-w-xl mx-auto leading-relaxed"
+            className="text-lg text-slate-400 max-w-xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 16 }}
             animate={headingInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
