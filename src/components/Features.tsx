@@ -50,7 +50,7 @@ function ProductCard({ product, index, wide }: { product: typeof PRODUCTS[0]; in
       className={wide ? 'col-span-1 sm:col-span-1' : ''}
     >
       <Link href={`/products/${product.slug}`} className="group block h-full">
-        <div className="relative h-full rounded-2xl border border-white/[0.07] bg-white/3 p-7 backdrop-blur-sm overflow-hidden cursor-pointer">
+        <div className="relative h-full rounded-2xl border border-slate-200 bg-slate-50 p-7 backdrop-blur-sm overflow-hidden cursor-pointer">
           {/* Gradient fill on hover */}
           <div
             className={`absolute inset-0 bg-linear-to-br ${product.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}
@@ -65,7 +65,7 @@ function ProductCard({ product, index, wide }: { product: typeof PRODUCTS[0]; in
           {/* Tag */}
           <div className="mb-5 flex items-start justify-between">
             <div
-              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200"
               style={{
                 background:  `linear-gradient(135deg, ${product.color}20, ${product.color}08)`,
                 boxShadow:   `0 0 18px ${product.color}20`,
@@ -82,12 +82,12 @@ function ProductCard({ product, index, wide }: { product: typeof PRODUCTS[0]; in
           </div>
 
           {/* Title */}
-          <h3 className="mb-2.5 text-lg font-semibold text-white/90 tracking-tight group-hover:text-white transition-colors">
+          <h3 className="mb-2.5 text-lg font-semibold text-slate-900 tracking-tight group-hover:text-white transition-colors">
             {product.title}
           </h3>
 
           {/* Description */}
-          <p className="text-sm text-white/40 leading-relaxed mb-5 group-hover:text-white/55 transition-colors">
+          <p className="text-sm text-slate-400 leading-relaxed mb-5 group-hover:text-slate-500 transition-colors">
             {product.desc}
           </p>
 
@@ -116,11 +116,11 @@ export default function Features() {
   const headingInView = useInView(headingRef, { once: true, margin: '-80px' })
 
   return (
-    <section className="relative bg-black py-28 px-6 overflow-hidden">
+    <section className="relative bg-white py-28 px-6 overflow-hidden">
       {/* Top divider */}
       <div
         className="absolute top-0 left-0 right-0 h-px pointer-events-none"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)' }}
+        style={{ background: 'linear-gradient(90deg, transparent, rgba(0,0,0,0.07), transparent)' }}
       />
 
       {/* Section glow */}
@@ -138,7 +138,7 @@ export default function Features() {
         {/* Heading */}
         <div ref={headingRef} className="mb-16 text-center">
           <motion.div
-            className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs text-white/50"
+            className="mb-3 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-100 px-4 py-1.5 text-xs text-slate-500"
             initial={{ opacity: 0, y: 12 }}
             animate={headingInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
@@ -147,7 +147,7 @@ export default function Features() {
           </motion.div>
 
           <motion.h2
-            className="text-4xl md:text-5xl font-bold tracking-tight text-white/90 mb-4"
+            className="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 mb-4"
             initial={{ opacity: 0, y: 20 }}
             animate={headingInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, delay: 0.1 }}
@@ -156,7 +156,7 @@ export default function Features() {
           </motion.h2>
 
           <motion.p
-            className="text-white/40 max-w-xl mx-auto leading-relaxed"
+            className="text-slate-400 max-w-xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 16 }}
             animate={headingInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}

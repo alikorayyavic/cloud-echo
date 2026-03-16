@@ -15,7 +15,7 @@ export default function Footer() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <footer className="relative bg-black overflow-hidden">
+    <footer className="relative bg-slate-900 overflow-hidden">
       {/* Top divider */}
       <div
         className="absolute top-0 left-0 right-0 h-px pointer-events-none"
@@ -38,7 +38,7 @@ export default function Footer() {
                 </div>
                 <span className="text-base font-bold gradient-text tracking-tight">Cloud Echo</span>
               </div>
-              <p className="text-sm text-white/30 leading-relaxed max-w-xs mt-3">
+              <p className="text-sm text-white/40 leading-relaxed max-w-xs mt-3">
                 Yapay zeka ile güçlendirilmiş SaaS çözümleri. Geleceği şimdi inşa ediyoruz.
               </p>
 
@@ -48,7 +48,7 @@ export default function Footer() {
                   <motion.a
                     key={i}
                     href="#"
-                    className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/3 text-white/35 hover:text-white/70 hover:bg-white/[0.07] hover:border-white/20 transition-all duration-200"
+                    className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-white/40 hover:text-slate-600 hover:bg-white/[0.07] hover:border-white/20 transition-all duration-200"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                   >
@@ -86,14 +86,14 @@ export default function Footer() {
           </motion.div>
 
           {/* Bottom bar */}
-          <div className="border-t border-white/6 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p className="text-xs text-white/20">
+          <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p className="text-xs text-white/25">
               © 2025 Cloud Echo. Tüm hakları saklıdır.
             </p>
-            <div className="flex gap-5 text-xs text-white/20">
-              <a href="#" className="hover:text-white/45 transition-colors duration-200">Gizlilik Politikası</a>
-              <a href="#" className="hover:text-white/45 transition-colors duration-200">Kullanım Koşulları</a>
-              <a href="#" className="hover:text-white/45 transition-colors duration-200">Çerezler</a>
+            <div className="flex gap-5 text-xs text-white/25">
+              <a href="#" className="hover:text-slate-500 transition-colors duration-200">Gizlilik Politikası</a>
+              <a href="#" className="hover:text-slate-500 transition-colors duration-200">Kullanım Koşulları</a>
+              <a href="#" className="hover:text-slate-500 transition-colors duration-200">Çerezler</a>
             </div>
           </div>
         </div>

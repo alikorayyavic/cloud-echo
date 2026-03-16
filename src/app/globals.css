@@ -121,7 +121,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-black text-white;
+    @apply bg-white text-slate-900;
   }
   html {
     @apply font-sans;
@@ -132,7 +132,7 @@
 /* Custom text selection */
 ::selection {
   background: rgba(6, 182, 212, 0.28);
-  color: #ffffff;
+  color: #0f172a;
 }
 
 ::-moz-selection {
@@ -177,7 +177,7 @@
 
 /* Gradient text utility */
 .gradient-text {
-  background: linear-gradient(135deg, #ffffff 0%, #06b6d4 50%, #3b82f6 100%);
+  background: linear-gradient(135deg, #0f172a 0%, #06b6d4 50%, #3b82f6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -201,12 +201,12 @@
   width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #000;
+  background: #f1f5f9;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(0,0,0,0.10);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(0,0,0,0.18);
 }

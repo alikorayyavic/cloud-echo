@@ -9,11 +9,11 @@ export default function CTABanner() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="relative bg-black py-28 px-6 overflow-hidden">
+    <section ref={ref} className="relative bg-slate-50 py-28 px-6 overflow-hidden">
       {/* Top divider */}
       <div
         className="absolute top-0 left-0 right-0 h-px pointer-events-none"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent)' }}
+        style={{ background: 'linear-gradient(90deg, transparent, rgba(0,0,0,0.07), transparent)' }}
       />
 
       {/* Background glow */}
@@ -32,13 +32,13 @@ export default function CTABanner() {
         <div
           className="absolute -inset-px rounded-3xl pointer-events-none"
           style={{
-            background: 'linear-gradient(135deg, rgba(6,182,212,0.12), rgba(59,130,246,0.08), transparent 60%)',
+            background: 'linear-gradient(135deg, rgba(6,182,212,0.18), rgba(59,130,246,0.12), transparent 60%)',
           }}
         />
-        <div className="relative rounded-3xl border border-white/[0.07] bg-white/[0.02] backdrop-blur-sm px-8 py-16 text-center">
+        <div className="relative rounded-3xl border border-slate-200 bg-white shadow-sm px-8 py-16 text-center">
 
           <motion.div
-            className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs text-white/50"
+            className="mb-5 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-100 px-4 py-1.5 text-xs text-slate-500"
             initial={{ opacity: 0, y: 12 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
@@ -55,11 +55,11 @@ export default function CTABanner() {
           >
             <span className="gradient-text">Yapay Zeka Asistanınızı</span>
             <br />
-            <span className="text-white/90">Hemen Oluşturun.</span>
+            <span className="text-slate-900">Hemen Oluşturun.</span>
           </motion.h2>
 
           <motion.p
-            className="text-white/40 mb-10 text-lg leading-relaxed"
+            className="text-slate-400 mb-10 text-lg leading-relaxed"
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, delay: 0.2 }}
@@ -75,7 +75,7 @@ export default function CTABanner() {
           >
             <motion.a
               href="/try-it"
-              className="glow-border group relative inline-flex items-center gap-2.5 rounded-2xl bg-black px-8 py-4 text-base font-semibold text-white"
+              className="glow-border group relative inline-flex items-center gap-2.5 rounded-2xl bg-slate-900 px-8 py-4 text-base font-semibold text-white"
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
             >
@@ -88,7 +88,7 @@ export default function CTABanner() {
             </motion.a>
 
             <motion.button
-              className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-8 py-4 text-base font-semibold text-white/55 hover:text-white hover:bg-white/10 transition-colors duration-200"
+              className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-slate-100 px-8 py-4 text-base font-semibold text-slate-500 hover:text-white hover:bg-slate-200 transition-colors duration-200"
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
             >

@@ -21,7 +21,7 @@ export default function Navbar() {
     <motion.nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'border-b border-white/[0.07] bg-black/85 backdrop-blur-xl shadow-[0_1px_40px_rgba(0,0,0,0.4)]'
+          ? 'border-b border-slate-200 bg-white/90 backdrop-blur-xl shadow-sm border-b border-slate-200/80 shadow-[0_1px_40px_rgba(0,0,0,0.4)]'
           : 'bg-transparent'
       }`}
       initial={{ y: -80, opacity: 0 }}
@@ -45,7 +45,7 @@ export default function Navbar() {
               <a
                 key={item}
                 href="#"
-                className="text-sm text-white/45 hover:text-white/90 transition-colors duration-200"
+                className="text-sm text-slate-500 hover:text-slate-900 transition-colors duration-200"
               >
                 {item}
               </a>
@@ -56,19 +56,19 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-4">
             <Link
               href="/dashboard"
-              className="text-sm text-white/45 hover:text-white/80 transition-colors duration-200"
+              className="text-sm text-slate-500 hover:text-slate-700 transition-colors duration-200"
             >
               Dashboard
             </Link>
             <a
               href="#"
-              className="text-sm text-white/45 hover:text-white/80 transition-colors duration-200"
+              className="text-sm text-slate-500 hover:text-slate-700 transition-colors duration-200"
             >
               Giriş Yap
             </a>
             <motion.a
               href="/try-it"
-              className="glow-border inline-flex items-center gap-2 rounded-xl bg-black px-5 py-2 text-sm font-semibold text-white"
+              className="glow-border inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-2 text-sm font-semibold text-white"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
@@ -78,7 +78,7 @@ export default function Navbar() {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden text-white/50 hover:text-white transition-colors p-1"
+            className="md:hidden text-slate-500 hover:text-white transition-colors p-1"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Menü"
           >
@@ -90,7 +90,7 @@ export default function Navbar() {
       {/* Mobile menu */}
       {menuOpen && (
         <motion.div
-          className="md:hidden border-t border-white/[0.06] bg-black/95 backdrop-blur-xl px-6 py-5"
+          className="md:hidden border-t border-slate-100 bg-white/95 backdrop-blur-xl px-6 py-5"
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.18 }}
@@ -100,22 +100,22 @@ export default function Navbar() {
               <a
                 key={item}
                 href="#"
-                className="text-sm text-white/55 hover:text-white py-2.5 transition-colors"
+                className="text-sm text-slate-500 hover:text-white py-2.5 transition-colors"
                 onClick={() => setMenuOpen(false)}
               >
                 {item}
               </a>
             ))}
-            <div className="pt-4 mt-2 border-t border-white/[0.06] flex flex-col gap-2.5">
-              <Link href="/dashboard" className="text-sm text-white/55 hover:text-white py-1.5 transition-colors" onClick={() => setMenuOpen(false)}>
+            <div className="pt-4 mt-2 border-t border-slate-100 flex flex-col gap-2.5">
+              <Link href="/dashboard" className="text-sm text-slate-500 hover:text-white py-1.5 transition-colors" onClick={() => setMenuOpen(false)}>
                 Dashboard
               </Link>
-              <a href="#" className="text-sm text-white/55 hover:text-white py-1.5 transition-colors">
+              <a href="#" className="text-sm text-slate-500 hover:text-white py-1.5 transition-colors">
                 Giriş Yap
               </a>
               <a
                 href="/try-it"
-                className="glow-border inline-flex justify-center rounded-xl bg-black px-5 py-3 text-sm font-semibold text-white"
+                className="glow-border inline-flex justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white"
               >
                 Ücretsiz Deneyin
               </a>

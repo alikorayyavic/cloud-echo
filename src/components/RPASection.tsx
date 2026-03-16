@@ -24,11 +24,11 @@ export default function RPASection() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="relative bg-black py-28 px-6 overflow-hidden">
+    <section ref={ref} className="relative bg-slate-50 py-28 px-6 overflow-hidden">
       {/* Top divider */}
       <div
         className="absolute top-0 left-0 right-0 h-px pointer-events-none"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)' }}
+        style={{ background: 'linear-gradient(90deg, transparent, rgba(0,0,0,0.07), transparent)' }}
       />
 
       {/* Amber background glow */}
@@ -64,7 +64,7 @@ export default function RPASection() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <span className="text-white/90">Tekrar Eden İşleri</span>
+              <span className="text-slate-900">Tekrar Eden İşleri</span>
               <br />
               <span style={{ background: 'linear-gradient(135deg, #f59e0b, #fbbf24)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                 Robotlara Bırakın
@@ -72,7 +72,7 @@ export default function RPASection() {
             </motion.h2>
 
             <motion.p
-              className="text-white/40 text-base leading-relaxed mb-8 max-w-md"
+              className="text-slate-400 text-base leading-relaxed mb-8 max-w-md"
               initial={{ opacity: 0, y: 16 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.55, delay: 0.2 }}
@@ -93,7 +93,7 @@ export default function RPASection() {
                     <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 border border-amber-500/20">
                       <Icon className="h-3.5 w-3.5 text-amber-400" />
                     </div>
-                    <span className="text-sm text-white/60">{b.text}</span>
+                    <span className="text-sm text-slate-500">{b.text}</span>
                   </div>
                 )
               })}
@@ -124,15 +124,15 @@ export default function RPASection() {
             transition={{ duration: 0.65, delay: 0.25 }}
           >
             {/* Main card */}
-            <div className="rounded-2xl border border-white/[0.07] bg-white/2 p-6 backdrop-blur-sm">
+            <div className="rounded-2xl border border-slate-200 bg-white shadow-sm p-6">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
                   <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-500/10 border border-amber-500/20">
                     <Bot className="h-5 w-5 text-amber-400" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-white/85">RPA Bot</p>
-                    <p className="text-[11px] text-white/35">Aktif · 12 görev kuyruğunda</p>
+                    <p className="text-sm font-semibold text-slate-800">RPA Bot</p>
+                    <p className="text-[11px] text-slate-400">Aktif · 12 görev kuyruğunda</p>
                   </div>
                 </div>
                 <span className="flex items-center gap-1.5 text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-2.5 py-1">
@@ -152,26 +152,26 @@ export default function RPASection() {
                   <div key={s.step} className="flex items-center gap-3">
                     <span
                       className="text-[10px] font-bold px-1.5 rounded"
-                      style={{ color: s.done ? '#f59e0b' : 'rgba(255,255,255,0.2)', background: s.done ? 'rgba(245,158,11,0.1)' : 'rgba(255,255,255,0.04)' }}
+                      style={{ color: s.done ? '#f59e0b' : 'rgba(15,23,42,0.2)', background: s.done ? 'rgba(245,158,11,0.1)' : 'rgba(0,0,0,0.05)' }}
                     >
                       {s.step}
                     </span>
-                    <span className={`text-xs ${s.done ? 'text-white/65' : 'text-white/25'}`}>{s.label}</span>
+                    <span className={`text-xs ${s.done ? 'text-slate-600' : 'text-slate-300'}`}>{s.label}</span>
                     {s.done && <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 ml-auto shrink-0" />}
                   </div>
                 ))}
               </div>
 
               {/* Use cases */}
-              <div className="border-t border-white/6 pt-5">
-                <p className="text-[11px] text-white/30 mb-3 uppercase tracking-widest">Kullanım Alanları</p>
+              <div className="border-t border-slate-200 pt-5">
+                <p className="text-[11px] text-slate-400 mb-3 uppercase tracking-widest">Kullanım Alanları</p>
                 <div className="grid grid-cols-2 gap-2">
                   {USE_CASES.map((uc, i) => {
                     const Icon = uc.Icon
                     return (
-                      <div key={i} className="flex items-center gap-2 rounded-lg bg-white/3 border border-white/5 px-3 py-2">
+                      <div key={i} className="flex items-center gap-2 rounded-lg bg-slate-50 border border-white/5 px-3 py-2">
                         <Icon className="h-3.5 w-3.5 shrink-0" style={{ color: uc.color }} />
-                        <span className="text-[11px] text-white/50">{uc.label}</span>
+                        <span className="text-[11px] text-slate-500">{uc.label}</span>
                       </div>
                     )
                   })}
@@ -181,13 +181,13 @@ export default function RPASection() {
 
             {/* Floating stat */}
             <motion.div
-              className="absolute -bottom-4 -left-4 rounded-xl border border-white/10 bg-black/90 backdrop-blur-sm px-4 py-3"
+              className="absolute -bottom-4 -left-4 rounded-xl border border-slate-200 bg-white backdrop-blur-sm px-4 py-3"
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
             >
-              <p className="text-[10px] text-white/35 mb-0.5">Ortalama ROI</p>
+              <p className="text-[10px] text-slate-400 mb-0.5">Ortalama ROI</p>
               <p className="text-xl font-bold" style={{ color: '#f59e0b' }}>%30–200</p>
-              <p className="text-[9px] text-white/25">İlk yıl içinde</p>
+              <p className="text-[9px] text-slate-300">İlk yıl içinde</p>
             </motion.div>
           </motion.div>
 

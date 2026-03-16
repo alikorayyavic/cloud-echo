@@ -55,7 +55,7 @@ function MiniCard({ item }: { item: QueueCard }) {
       animate={{ opacity: 1, y: 0,  scale: 1    }}
       exit={{    opacity: 0, y: -24, scale: 0.97 }}
       transition={{ duration: 0.38, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
-      className="relative rounded-xl border border-white/[0.07] bg-white/[0.03] p-3.5 backdrop-blur-sm overflow-hidden"
+      className="relative rounded-xl border border-slate-200 bg-white shadow-sm p-3.5 backdrop-blur-sm overflow-hidden"
     >
       <div
         className="absolute left-0 top-3 bottom-3 w-0.5 rounded-full"
@@ -64,14 +64,14 @@ function MiniCard({ item }: { item: QueueCard }) {
       <div className="pl-3 flex items-start justify-between gap-2">
         <div className="flex items-start gap-2.5 min-w-0">
           <div
-            className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-white/10"
+            className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-slate-200"
             style={{ background: item.bg, boxShadow: `0 0 10px ${item.color}25` }}
           >
             <Icon className="h-3 w-3" style={{ color: item.color }} />
           </div>
           <div className="min-w-0">
-            <p className="text-[10px] text-white/30 mb-0.5 truncate">{item.agent}</p>
-            <p className="text-xs font-medium text-white/75 leading-snug truncate">{item.task}</p>
+            <p className="text-[10px] text-slate-400 mb-0.5 truncate">{item.agent}</p>
+            <p className="text-xs font-medium text-slate-700 leading-snug truncate">{item.task}</p>
             <div className="mt-1.5">
               {item.status === 'completed' ? (
                 <span className="inline-flex items-center gap-1 text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
@@ -89,8 +89,8 @@ function MiniCard({ item }: { item: QueueCard }) {
           </div>
         </div>
         <div className="shrink-0 text-right">
-          <p className="text-[9px] text-white/20 tabular-nums">{time}</p>
-          <p className="text-[9px] text-white/15 mt-0.5">{item.no}</p>
+          <p className="text-[9px] text-slate-300 tabular-nums">{time}</p>
+          <p className="text-[9px] text-slate-300 mt-0.5">{item.no}</p>
         </div>
       </div>
     </motion.div>
@@ -133,18 +133,18 @@ function ActivityFeed() {
       {/* Fade mask top */}
       <div
         className="absolute top-0 left-0 right-0 h-10 z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to bottom, #000 20%, transparent)' }}
+        style={{ background: 'linear-gradient(to bottom, #ffffff 20%, transparent)' }}
       />
       <AnimatePresence mode="sync">
         {queue.map((item) => <MiniCard key={item.uid} item={item} />)}
       </AnimatePresence>
       {/* Live badge */}
-      <div className="absolute -top-2 right-0 z-20 flex items-center gap-1.5 rounded-full border border-white/10 bg-black/90 backdrop-blur-sm px-2.5 py-1">
+      <div className="absolute -top-2 right-0 z-20 flex items-center gap-1.5 rounded-full border border-white/10 bg-white/90 backdrop-blur-sm shadow-sm px-2.5 py-1">
         <span className="relative flex h-1.5 w-1.5">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
           <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
         </span>
-        <span className="text-[10px] text-white/50 font-medium">Canlı</span>
+        <span className="text-[10px] text-slate-500 font-medium">Canlı</span>
       </div>
     </div>
   )
@@ -189,7 +189,7 @@ function OrbitIcon({ product, index, total }: {
           {product.symbol}
         </motion.div>
         <span
-          className="text-[9px] font-medium tracking-wide whitespace-nowrap transition-colors duration-300 text-white/35 group-hover:text-white/70"
+          className="text-[9px] font-medium tracking-wide whitespace-nowrap transition-colors duration-300 text-slate-400 group-hover:text-slate-600"
           style={{ textShadow: '0 1px 8px rgba(0,0,0,0.8)' }}
         >
           {product.name}
@@ -217,7 +217,7 @@ function Particles() {
       {dots.map((d) => (
         <motion.div
           key={d.id}
-          className="absolute rounded-full bg-white/20"
+          className="absolute rounded-full bg-slate-400/40"
           style={{ left: `${d.x}%`, top: `${d.y}%`, width: d.size, height: d.size }}
           animate={{ y: [0, -18, 0], opacity: [0.1, 0.45, 0.1] }}
           transition={{ duration: d.dur, delay: d.delay, repeat: Infinity, ease: 'easeInOut' }}
@@ -285,7 +285,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative min-h-screen flex items-center overflow-hidden bg-black pt-16"
+      className="relative min-h-screen flex items-center overflow-hidden bg-white pt-16"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
@@ -310,8 +310,8 @@ export default function HeroSection() {
         className="absolute inset-0 pointer-events-none opacity-[0.025]"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)
+            linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)
           `,
           backgroundSize: '60px 60px',
         }}
@@ -337,7 +337,7 @@ export default function HeroSection() {
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight leading-[1.15] mb-5">
               <span className="gradient-text">AI Asistanlarınız</span>
               <br />
-              <span className="text-white/90">7/24 Çalışıyor</span>
+              <span className="text-slate-900">7/24 Çalışıyor</span>
             </h2>
 
             {/* CTA */}
@@ -384,7 +384,7 @@ export default function HeroSection() {
                 >
                   <span className="text-xl">👩‍⚕️</span>
                   <div>
-                    <p className="text-xs font-semibold text-white/80">Ayşe — Avicenna Hastanesi</p>
+                    <p className="text-xs font-semibold text-slate-700">Ayşe — Avicenna Hastanesi</p>
                     <p className="text-[11px] text-cyan-400 flex items-center gap-1.5 mt-0.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
                       {isAgentTalking ? 'Konuşuyor...' : isMeTalking ? 'Sizi dinliyor...' : 'Çevrimiçi'}
@@ -416,13 +416,13 @@ export default function HeroSection() {
           >
             {/* Orbit ring */}
             <div
-              className="absolute rounded-full border border-dashed border-white/[0.07] pointer-events-none"
+              className="absolute rounded-full border border-dashed border-slate-300/60 pointer-events-none"
               style={{ width: ORBIT_RADIUS * 2, height: ORBIT_RADIUS * 2 }}
             />
 
             {/* Second subtle ring */}
             <div
-              className="absolute rounded-full border border-white/[0.03] pointer-events-none"
+              className="absolute rounded-full border border-slate-200/40 pointer-events-none"
               style={{ width: ORBIT_RADIUS * 2 + 60, height: ORBIT_RADIUS * 2 + 60 }}
             />
 
@@ -461,9 +461,9 @@ export default function HeroSection() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4 }}
       >
-        <span className="text-[10px] text-white/20 tracking-widest uppercase">Keşfet</span>
+        <span className="text-[10px] text-slate-300 tracking-widest uppercase">Keşfet</span>
         <motion.div
-          className="w-px h-8 bg-linear-to-b from-white/20 to-transparent"
+          className="w-px h-8 bg-linear-to-b from-slate-300 to-transparent"
           animate={{ scaleY: [1, 0.4, 1] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
         />
