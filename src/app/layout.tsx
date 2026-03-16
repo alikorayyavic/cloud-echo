@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cloud Echo — AI SaaS Solutions",
-  description: "SaaS Çözümlerini Yapay Zeka ile Yeniden Tanımlayın. Premium AI asistan ve SaaS entegrasyon platformu.",
+  title: "Dynext AI — Yapay Zeka ile İşinizi Dönüştürün",
+  description: "Dynext AI — SaaS Çözümlerini Yapay Zeka ile Yeniden Tanımlayın. Premium AI asistan ve SaaS entegrasyon platformu.",
 };
 
 export default function RootLayout({

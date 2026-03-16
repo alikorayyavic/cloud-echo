@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { Menu, X, Zap } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 
 const NAV_ITEMS = ['Ürünler', 'Fiyatlandırma', 'Hakkımızda', 'Blog']
 
@@ -32,11 +32,9 @@ export default function Navbar() {
         <div className="flex h-16 items-center justify-between">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-500/10 border border-cyan-500/20 group-hover:border-cyan-500/50 group-hover:bg-cyan-500/15 transition-all duration-200">
-              <Zap className="h-4 w-4 text-cyan-400" />
-            </div>
-            <span className="text-base font-bold gradient-text tracking-tight">Cloud Echo</span>
+          <Link href="/" className="flex items-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/dynext-logo.svg" alt="Dynext AI" height={36} style={{ height: 36 }} />
           </Link>
 
           {/* Desktop nav */}

@@ -2,7 +2,7 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { Twitter, Github, Linkedin, Zap } from 'lucide-react'
+import { Twitter, Github, Linkedin } from 'lucide-react'
 
 const NAV_LINKS = [
   { label: 'Ürün',   links: ['Özellikler', 'Fiyatlandırma', 'Entegrasyonlar', 'Güncellemeler'] },
@@ -32,11 +32,9 @@ export default function Footer() {
           >
             {/* Brand */}
             <div className="col-span-2 md:col-span-1">
-              <div className="mb-1 flex items-center gap-2">
-                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-cyan-500/10 border border-cyan-500/20">
-                  <Zap className="h-3.5 w-3.5 text-cyan-400" />
-                </div>
-                <span className="text-base font-bold gradient-text tracking-tight">Cloud Echo</span>
+              <div className="mb-1">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/dynext-logo.svg" alt="Dynext AI" style={{ height: 32, filter: 'brightness(0) invert(1)' }} />
               </div>
               <p className="text-sm text-white/40 leading-relaxed max-w-xs mt-3">
                 Yapay zeka ile güçlendirilmiş SaaS çözümleri. Geleceği şimdi inşa ediyoruz.
@@ -88,7 +86,7 @@ export default function Footer() {
           {/* Bottom bar */}
           <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
             <p className="text-xs text-white/25">
-              © 2025 Cloud Echo. Tüm hakları saklıdır.
+              © 2025 Dynext AI. Tüm hakları saklıdır.
             </p>
             <div className="flex gap-5 text-xs text-white/25">
               <a href="#" className="hover:text-slate-500 transition-colors duration-200">Gizlilik Politikası</a>
