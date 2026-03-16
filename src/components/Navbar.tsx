@@ -54,6 +54,12 @@ export default function Navbar() {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
+            <Link
+              href="/dashboard"
+              className="text-sm text-white/45 hover:text-white/80 transition-colors duration-200"
+            >
+              Dashboard
+            </Link>
             <a
               href="#"
               className="text-sm text-white/45 hover:text-white/80 transition-colors duration-200"
@@ -101,6 +107,9 @@ export default function Navbar() {
               </a>
             ))}
             <div className="pt-4 mt-2 border-t border-white/[0.06] flex flex-col gap-2.5">
+              <Link href="/dashboard" className="text-sm text-white/55 hover:text-white py-1.5 transition-colors" onClick={() => setMenuOpen(false)}>
+                Dashboard
+              </Link>
               <a href="#" className="text-sm text-white/55 hover:text-white py-1.5 transition-colors">
                 Giriş Yap
               </a>
