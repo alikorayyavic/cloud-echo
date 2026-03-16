@@ -3,8 +3,11 @@
 import { motion, useMotionValue, useSpring, useTransform, useAnimationFrame, AnimatePresence } from 'framer-motion'
 import { InteractiveRobotSpline } from '@/components/interactive-3d-robot'
 import { useRef, useState, useEffect } from 'react'
-import { ArrowRight, MessageSquare, Cpu, BarChart3, Bot, Zap, CheckCircle2, Loader2 } from 'lucide-react'
+import { ArrowRight, MessageSquare, Cpu, BarChart3, Bot, Zap, CheckCircle2, Loader2, Phone, PhoneOff } from 'lucide-react'
 import Link from 'next/link'
+import { RetellWebClient } from 'retell-client-js-sdk'
+
+type CallStatus = 'idle' | 'connecting' | 'active'
 
 /* ── 5 Products that orbit the robot ── */
 const PRODUCTS = [
@@ -230,6 +233,41 @@ export default function HeroSection() {
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
 
+  const [callStatus, setCallStatus]         = useState<CallStatus>('idle')
+  const [isAgentTalking, setIsAgentTalking] = useState(false)
+  const [isMeTalking, setIsMeTalking]       = useState(false)
+  const retellRef = useRef<InstanceType<typeof RetellWebClient> | null>(null)
+
+  useEffect(() => { return () => { retellRef.current?.stopCall() } }, [])
+
+  async function startCall() {
+    setCallStatus('connecting')
+    try {
+      const res = await fetch('/api/create-call', { method: 'POST' })
+      const { access_token, error } = await res.json()
+      if (error || !access_token) throw new Error()
+      const client = new RetellWebClient()
+      retellRef.current = client
+      client.on('call_started',        () => setCallStatus('active'))
+      client.on('call_ended',          () => { setCallStatus('idle'); setIsAgentTalking(false); setIsMeTalking(false) })
+      client.on('agent_start_talking', () => setIsAgentTalking(true))
+      client.on('agent_stop_talking',  () => setIsAgentTalking(false))
+      client.on('user_start_talking',  () => setIsMeTalking(true))
+      client.on('user_stop_talking',   () => setIsMeTalking(false))
+      client.on('error',               () => setCallStatus('idle'))
+      await client.startCall({ accessToken: access_token })
+    } catch {
+      setCallStatus('idle')
+    }
+  }
+
+  function endCall() {
+    retellRef.current?.stopCall()
+    setCallStatus('idle')
+    setIsAgentTalking(false)
+    setIsMeTalking(false)
+  }
+
   const rotateX = useSpring(useTransform(mouseY, [-300, 300], [6, -6]), { stiffness: 80, damping: 30 })
   const rotateY = useSpring(useTransform(mouseX, [-300, 300], [-6, 6]), { stiffness: 80, damping: 30 })
 
@@ -303,8 +341,8 @@ export default function HeroSection() {
             </h2>
 
             {/* CTA */}
-            <div className="mb-6">
-              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} className="inline-block">
+            <div className="mb-6 flex flex-wrap items-center gap-3">
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
                 <Link
                   href="/try-it"
                   className="glow-border group inline-flex items-center gap-2 rounded-xl bg-black px-6 py-3 text-sm font-semibold text-white"
@@ -313,7 +351,58 @@ export default function HeroSection() {
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </motion.div>
+
+              <motion.button
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={callStatus === 'idle' ? startCall : endCall}
+                disabled={callStatus === 'connecting'}
+                className={`inline-flex items-center gap-2 rounded-xl border px-6 py-3 text-sm font-semibold transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${
+                  callStatus === 'active'
+                    ? 'border-red-500/40 bg-red-500/10 text-red-400 hover:bg-red-500/20'
+                    : 'border-cyan-500/30 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/15'
+                }`}
+              >
+                {callStatus === 'connecting' ? (
+                  <><span className="w-3.5 h-3.5 border-2 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin" /> Bağlanıyor...</>
+                ) : callStatus === 'active' ? (
+                  <><PhoneOff className="h-3.5 w-3.5" /> Bitir</>
+                ) : (
+                  <><Phone className="h-3.5 w-3.5" /> Test Et</>
+                )}
+              </motion.button>
             </div>
+
+            {/* Active call indicator */}
+            <AnimatePresence>
+              {callStatus === 'active' && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 8 }}
+                  className="mb-4 inline-flex items-center gap-3 rounded-xl border border-cyan-500/20 bg-cyan-500/5 px-4 py-2.5"
+                >
+                  <span className="text-xl">👩‍⚕️</span>
+                  <div>
+                    <p className="text-xs font-semibold text-white/80">Ayşe — Avicenna Hastanesi</p>
+                    <p className="text-[11px] text-cyan-400 flex items-center gap-1.5 mt-0.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                      {isAgentTalking ? 'Konuşuyor...' : isMeTalking ? 'Sizi dinliyor...' : 'Çevrimiçi'}
+                    </p>
+                  </div>
+                  <div className="flex items-end gap-0.5 h-5 ml-1">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <motion.div
+                        key={i}
+                        className="w-0.5 rounded-full bg-cyan-400/70"
+                        animate={isAgentTalking || isMeTalking ? { height: [2, 14 + i * 2, 2] } : { height: 2 }}
+                        transition={{ duration: 0.45, repeat: Infinity, delay: i * 0.07, ease: 'easeInOut' }}
+                      />
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* Live notification feed */}
             <ActivityFeed />
